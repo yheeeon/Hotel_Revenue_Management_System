@@ -26,20 +26,14 @@
 - **📅 인터랙티브 대시보드**: 달력 기반의 직관적인 UI를 통해 날짜별 예약 트렌드와 예측 정보를 한눈에 파악할 수 있습니다.
 - **📈 실시간 통계 분석**: 전체 예약 데이터에 대한 통계와 시각화 자료를 제공하여 비즈니스 인사이트를 도출합니다.
 
-<br>
-
 ## WBS
 
 ![WBS](README_pic/WBS.png)
 
-<br>
-
-## 🗄️ 데이터베이스 스키마 (ERD)
+## 데이터베이스 스키마 (ERD)
 
 ![ERD](README_pic/erd.png)
 
-<br>
----
 
 ## 결측치 및 원시 데이터 확인
 
@@ -79,8 +73,6 @@ reservation_status_date                0
 dtype: int64
 ```
 
-<br>
-
 ## 호텔 투숙객 취소율 예측 모델
 
 ### 1. 개요
@@ -119,12 +111,12 @@ dtype: int64
 
 ### 5. 데이터 전처리 및 결측치 처리
 <div align="center">
-  <h4>1. 타겟 컬럼 취소율</h4>
+  <h4>5-1. 타겟 컬럼 취소율</h4>
   <img src="README_pic/취소율.png" alt="호텔 예약 취소율" width="70%">
 </div>
 
 <div align="center">
-  <h4>2. 결측치 처리</h4>
+  <h4>5-2. 결측치 처리</h4>
 </div>
 
 
@@ -141,7 +133,7 @@ df['country'] = df['country'].fillna(df['country'].mode()[0])
 ```
 
 <div align="center">
-  <h4>3. Feature 생성</h4>
+  <h4>5-3. Feature 생성</h4>
 </div>
 
 ```python
@@ -169,54 +161,25 @@ X['is_resort'] = X['hotel'].map({'City Hotel': 0, 'Resort Hotel': 1})
 | total | 숙박 기간이 길수록 취소율이 높을 것이다. |
 
 <div align="center">
-  <h4>4. 인코딩</h4>
+  <h4>5-4. 인코딩</h4>
 </div>
 
+범주형 변수는 **One-Hot Encoding**을 적용하여 숫자 형태로 변환했습니다. 학습 데이터와 테스트 데이터의 컬럼을 동일하게 맞추기 위해 테스트 데이터에 학습 데이터 기준으로 컬럼을 정렬하고, 없는 값은 0으로 채웠습니다.
 
-```python
-def one_hot_encode_and_align(X_tr: pd.DataFrame, X_te: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
-    X_tr = X_tr.copy()
-    X_te = X_te.copy()
-    cat_cols = X_tr.select_dtypes(include='object').columns.tolist()
-    if len(cat_cols) > 0:
-        X_tr = pd.get_dummies(X_tr, columns=cat_cols, drop_first=True)
-        X_te = pd.get_dummies(X_te, columns=cat_cols, drop_first=True)
-        X_te = X_te.reindex(columns=X_tr.columns, fill_value=0)
-    return X_tr, X_te
+또한 예측에 불필요하거나 고유값이 많아 과적합을 유발할 수 있는 원본 컬럼은 제거했습니다. 이를 통해 모델의 입력 데이터를 단순화하고 학습 안정성을 높였습니다.
 
-
-def drop_original_columns(X_tr: pd.DataFrame, X_te: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
-    X_tr = X_tr.copy()
-    X_te = X_te.copy()
-    columns_to_drop = [
-        'hotel', 'lead_time', 'adr', 'stays_in_weekend_nights',
-        'stays_in_week_nights', 'total_guests', 'reserved_room_type',
-        'assigned_room_type', 'customer_type',
-        'reservation_status',       # 예약 상태 (Check-Out, Canceled, No-Show)
-        'reservation_status_date',  # 수천 개의 날짜 컬럼 생성 방지
-        'arrival_date_full',        # 수천 개의 날짜 컬럼 생성 방지
-        'deposit_type',             # 보증금 타입
-        'agent',                    # 에이전트 ID (너무 많은 카테고리)
-        'company',                  # 회사 ID (너무 많은 카테고리)
-        'country',                  # 국가 (너무 많은 카테고리)
-    ]
-    X_tr.drop(columns=columns_to_drop, errors='ignore', inplace=True)
-    X_te.drop(columns=columns_to_drop, errors='ignore', inplace=True)
-    return X_tr, X_te
-```
 
 
   
 <div align="center">
-  <h4>5. 상관관계 히트맵</h4>
+  <h4>5-5. 상관관계 히트맵</h4>
 </div>
 
 ![Correlation Heatmap](README_pic/Heatmap.png)
 
 
-<div align="center">
-  <h4>6. Feature Importance</h4>
-</div>
+## Feature Importance
+
 
 ![Feature Importance](README_pic/Feature_importance_1.png)
 ![Feature Importance](README_pic/Feature_importance_2.png)
@@ -246,7 +209,7 @@ def drop_original_columns(X_tr: pd.DataFrame, X_te: pd.DataFrame) -> Tuple[pd.Da
 
 ![f1_score_param_changes](README_pic/f1_score_param_changes.png)
 
-### 최종 모델 성능
+## 최종 모델 성능
 | 지표 | 훈련 데이터 | 검증 데이터 | 상태 |
 | :--- | :--- | :--- | :--- |
 | 정확도 (Accuracy) | 0.9121 | 0.8762 | 
@@ -281,25 +244,25 @@ def drop_original_columns(X_tr: pd.DataFrame, X_te: pd.DataFrame) -> Tuple[pd.Da
 서비스 프로토타입: 호텔 조식 준비 및 고객 예측 시스템
 본 프로젝트는 호텔 관리자가 효율적으로 조식을 준비하고, 일자별 고객 유형을 파악하여 맞춤형 서비스를 제공할 수 있도록 돕는 웹 애플리케이션입니다. 분석 모델의 예측 결과를 기반으로 호텔 운영의 효율성을 극대화하는 데 중점을 두었습니다.
 
-**주요기능**
+### 1. 주요기능
 예약 유지 예측 기반 조식 준비 수량 추천
 
 - 예측 모델: 예약 취소율 예측 모델을 통해 실제 투숙할 고객 수를 예측합니다.
 
 - 조식 식수 예측 : 예측된 투숙객 수와 조식 포함 예약 비율을 고려하여, 폐기량을 최소화하고 비용을 절감할 수 있는 최적의 조식 준비 수량을 추천합니다.
 
-**일자별 고객 유형 및 특성 분석**
+### 2. 일자별 고객 유형 및 특성 분석
 
 고객 유형 시각화: 특정 날짜를 선택하면, 해당 일에 투숙 예정인 고객들의 주요 특성을 한눈에 파악할 수 있도록 시각화하여 보여줍니다.
 
 
-**대시보드 기능**
+### 3. 대시보드 기능
 
 직관적 대시보드: 모든 예측 데이터와 분석 결과는 직관적인 대시보드 형태로 제공됩니다. 복잡한 데이터를 쉽게 이해하고, 신속하게 의사결정을 내릴 수 있도록 돕습니다.
 
 손쉬운 사용: 간단한 날짜 선택만으로 원하는 정보를 즉시 확인할 수 있는 사용자 친화적인 인터페이스를 제공합니다.
 
-**기대효과**
+### 4. 기대효과
 - 비용 절감: 조식 준비 수량을 최적화하여 식자재 낭비를 줄이고, 운영 비용을 절감할 수 있습니다.
 - Feature importance 분석을 통하여 취소율에 영향을 미치는 주요 요인을 파악하고, 이를 바탕으로 예약 취소 마케팅 전략을 새롭게 수립할 수 있다.
 
