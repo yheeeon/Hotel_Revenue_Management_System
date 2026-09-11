@@ -13,71 +13,13 @@
 
 ---
 
-## 📌 프로젝트 주제 선정 배경
+## 프로젝트 주제 선정 배경
 
 온라인 예약의 보편화로 호텔 산업은 높은 예약 취소율 문제에 직면해 있으며, 이는 단순한 예약 감소를 넘어 객실 재고 관리 불안정, 운영비 증가, 수익 손실 등 경영 리스크로 연결됩니다.
 
 본 프로젝트는 실제 호텔 예약 데이터를 활용해 개별 예약의 취소 여부와 일별 기대 체크인·조식 수요를 사전에 예측하고, 취소 리스크가 높은 고객군에 대해서는 맞춤형 프로모션·재확인 정책을 제안함으로써 공실과 식자재 낭비를 줄이고 운영 효율 및 수익을 극대화하는 것을 목표로 합니다.
 
-<br>
-
-## **팀 소개 : 호텔 델루나**
-**SKN18-2nd-5Team** - 호텔 예약 데이터 분석 및 예측 서비스 개발팀
-
-<br>
-
-<table align="center">
-  <tr>
-    <td align="center" valign="top">
-      <img src="README_pic/임연희.png" width="150" height="150" style="object-fit: cover;" alt="이태호"/>
-      <br />
-      <sub><b>이태호</b></sub>
-      <br />
-      <sub>팀장/총지베인</sub>
-      <br />
-      <a href="https://github.com/william7333" target="_blank">william7333</a>
-    </td>
-    <td align="center" valign="top">
-      <img src="README_pic/이태호.png" width="150" height="150" style="object-fit: cover;" alt="임연희"/>
-      <br />
-      <sub><b>임연희</b></sub>
-      <br />
-      <sub>부팀장/사장</sub>
-      <br />
-      <a href="https://github.com/yheeeon" target="_blank">yheeeon</a>
-    </td>
-    <td align="center" valign="top">
-      <img src="README_pic/정인하.png" width="150" height="150" style="object-fit: cover;" alt="정인하"/>
-      <br />
-      <sub><b>정인하</b></sub>
-      <br />
-      <sub>팀원/유령인턴</sub>
-      <br />
-      <a href="https://github.com/enapeace" target="_blank">enapeace</a>
-    </td>
-    <td align="center" valign="top">
-      <img src="README_pic/김담하.png" width="150" height="150" style="object-fit: cover;" alt="김담하"/>
-      <br />
-      <sub><b>김담하</b></sub>
-      <br />
-      <sub>팀원/프론트맨</sub>
-      <br />
-      <a href="https://github.com/DamHA-Kim" target="_blank">DamHA-Kim</a>
-    </td>
-    <td align="center" valign="top">
-      <img src="README_pic/조준호.png" width="150" height="150" style="object-fit: cover;" alt="조준호"/>
-      <br />
-      <sub><b>조준호</b></sub>
-      <br />
-      <sub>팀원/바텐더</sub>
-      <br />
-      <a href="https://github.com/lemondear" target="_blank">lemondear</a>
-    </td>
-  </tr>
-</table>
-
-
-## ✨ 주요 기능
+## 주요 기능
 
 - **📊 예약 취소 예측**: 특정 날짜의 예상 체크인/취소 건수를 예측하여 오버부킹 전략 및 인력 배치를 최적화합니다.
 - **☕ 조식 수요 예측**: 예측된 체크인 인원과 예약 정보를 바탕으로 일별 최적의 조식 준비 인원을 추천합니다.
@@ -86,18 +28,9 @@
 
 <br>
 
-## 🗓️ WBS
+## WBS
 
 ![WBS](README_pic/WBS.png)
-
-<br>
-
-## ⚙️ 시스템 아키텍처
-
-![시스템 아키텍처처](README_pic/아키텍처.png)
-
-<br>
-
 
 <br>
 
@@ -105,52 +38,10 @@
 
 ![ERD](README_pic/erd.png)
 
-
 <br>
-
-## 🚀 시작하기
-
-### 1. 사전 요구사항
-- Python 3.1 이상
-- Node.js 16 이상
-- Git
-- MySQL
-
-### 2. 설치 및 실행
-
-1.  **저장소 클론**
-    ```bash
-    git clone https://github.com/SKN18-2nd-5Team/hotel-prediction.git
-    cd hotel-prediction
-    ```
-
-2.  **데이터베이스 설정**
-    - MySQL에 접속하여 `hotelbookings` 데이터베이스를 생성합니다.
-    - `hotel_booking.sql` 스크립트를 실행하여 테이블과 데이터를 임포트합니다.
-    - `ML/service/database/connection.py` 파일에 DB 연결 정보를 수정합니다.
-
-3.  **백엔드 실행** (새 터미널)
-    ```bash
-    cd backend
-    python -m venv venv
-    # Windows
-    venv\Scripts\activate
-    # macOS/Linux
-    # source venv/bin/activate
-    pip install -r requirements.txt
-    uvicorn main:app --reload --host 0.0.0.0 --port 8000
-    ```
-
-4.  **프론트엔드 실행** (새 터미널)
-    ```bash
-    cd frontend
-    npm install --legacy-peer-deps
-    npm run dev
-    ```
-
 ---
 
-## 📊 결측치 및 원시 데이터 확인
+## 결측치 및 원시 데이터 확인
 
 ```
 company                           112593
@@ -190,7 +81,7 @@ dtype: int64
 
 <br>
 
-## 📈 호텔 투숙객 취소율 예측 모델
+## 호텔 투숙객 취소율 예측 모델
 
 ### 1. 개요
 본 프로젝트는 호텔 투숙객 데이터를 분석하여 예약 취소 가능성을 예측하는 머신러닝 모델을 구축하는 것을 목표로 합니다. 호텔 운영 효율성을 높이고, 수익을 극대화하는 데 기여할 수 있습니다.
@@ -282,8 +173,6 @@ X['is_resort'] = X['hotel'].map({'City Hotel': 0, 'Resort Hotel': 1})
 </div>
 
 
-
-
 ```python
 def one_hot_encode_and_align(X_tr: pd.DataFrame, X_te: pd.DataFrame) -> Tuple[pd.DataFrame, pd.DataFrame]:
     X_tr = X_tr.copy()
@@ -369,31 +258,27 @@ def drop_original_columns(X_tr: pd.DataFrame, X_te: pd.DataFrame) -> Tuple[pd.Da
 
 <br>
 
-## 🚀 모델 최적화 및 오버피팅 해결 (Optimization & Overfitting Fix)
+## 모델 최적화 및 오버피팅 해결 (Optimization & Overfitting Fix)
 
-### 1. 문제점 (Problem): 심각한 과적합(Overfitting) 발생
+### 1. 문제점:과적합(Overfitting) 발생
 - **현상**: 초기 모델 구동 시 훈련 데이터 F1(0.91)과 검증 데이터 F1(0.70) 사이의 차이가 **0.2032**에 달함.
 - **원인**: 핵심 시그널(`deposit_type` 등)의 유실과 고차원 피처(`country` 등)의 단순 인코딩으로 인해 모델이 노이즈를 암기함.
 
-### 2. 해결 방안 (Solution): Feature Enrichment & Target Encoding
+### 2. 해결 방안: Feature Enrichment & Target Encoding
 - **핵심 피처 복구**: 취소율 95% 이상의 강력한 지표인 `deposit_type`을 다시 모델에 포함.
 - **Target Encoding 도입**: `country`, `agent` 등 100개 이상의 범주를 가진 피처를 **평균 취소율**로 수치화하여 시그널은 극대화하고 복잡도는 최소화.
 - **Optuna Penalty Tuning**: K-Fold CV 과정에서 Gap이 0.05를 초과할 경우 대폭 감점하는 목적 함수를 통해 일반화 성능 강제.
 
 ### 3. 개선 결과 (Result)
-| 항목 | 개선 전 (Initial) | 개선 후 (Enriched) | 개선 효과 |
+| 항목 | 개선 전 | 개선 후| 개선 효과 |
 | :--- | :---: | :---: | :---: |
-| **Validation F1** | 0.7051 | **0.7838** | **약 11% 성능 향상** 📈 |
-| **F1 점수 차이 (Gap)** | **0.2032** | **0.0604** | **약 70% Overfitting 감소** ✅ |
-| **CV 평균 Gap** | - | **0.0346** | **안정적인 일반화 확보** ✅ |
+| **Validation F1** | 0.7051 | **0.7838** | **약 11% 성능 향상**  |
+| **F1 점수 차이 (Gap)** | **0.2032** | **0.0604** | **약 70% Overfitting 감소**  |
+| **CV 평균 Gap** | - | **0.0346** | **안정적인 일반화 확보**  |
 
-<br>
+## 솔루션 프로토타입: React vite 기반 추천 시스템
 
-<div align="center">
-  <h4> 8. 솔루션 프로토타입: React vite 기반 추천 시스템</h4>
-</div>
-
-🍳 서비스 프로토타입: 호텔 조식 준비 및 고객 예측 시스템
+서비스 프로토타입: 호텔 조식 준비 및 고객 예측 시스템
 본 프로젝트는 호텔 관리자가 효율적으로 조식을 준비하고, 일자별 고객 유형을 파악하여 맞춤형 서비스를 제공할 수 있도록 돕는 웹 애플리케이션입니다. 분석 모델의 예측 결과를 기반으로 호텔 운영의 효율성을 극대화하는 데 중점을 두었습니다.
 
 **주요기능**
@@ -420,33 +305,13 @@ def drop_original_columns(X_tr: pd.DataFrame, X_te: pd.DataFrame) -> Tuple[pd.Da
 
 ---
 
-## 🔍 주요 인사이트
+## 주요 인사이트
 
 본 프로젝트에서는 호텔 예약 취소 여부를 예측하기 위해 다양한 머신러닝 모델을 비교·분석한 결과, **XGBoost 모델이 가장 우수한 성능**을 보였다. 
 
-데이터 분석 결과, **리드타임(lead_time_processed), 식사 옵션(is_FB_meal), 동행 여부(is_alone)** 세 가지 변수가 취소율 예측에 가장 큰 영향을 미치는 핵심 요인으로 나타났다.
+데이터 분석 결과, **리드타임, 식사 옵션, 동행 여부** 세 가지 변수가 취소율 예측에 가장 큰 영향을 미치는 핵심 요인으로 나타났다.
 
 - 리드타임이 길수록 취소율이 높아지는 경향
 - FB 식사를 포함한 고객은 취소율이 상대적으로 높음
 - 1인 투숙객(is_alone=1)은 오히려 취소 가능성이 낮음
 ---
-
-## 소감
-
-**이태호**
-- 모델 하나로 끝나는 게 아니라 전처리·검증·UI 연결에 데이터베이스까지 끝까지 구현해보니 실무에서의 연결 고리들이 얼마나 중요한지 깨달았습니다.
-작은 프로토타입으로도 운영 효율(조식 준비 등)에 실질적 기여 가능성을 확인해 보람을 느꼈고, 열심히 따라와준 팀원들에게 고마운 마음이 큽니다.
-
-**임연희**
-- 이번 기회에  팀원의 도움을 받아서 git으로 프로젝트를 제대로 활용해볼 수 있었고, 처음으로 React로 페이지를 구현하게 되어  걱정이 많았는데 끝까지 팀원 서로가 도와줬기에 순조롭게 마무리할 수 있었습니다. 5조 최고 !! 👍
-
-**정인하**
-- 이번 프로젝트를 통해 머신러닝에 대한 이해를 한층 깊게 할 수 있어 뜻깊은 경험이었습니다.
-특히 실력과 인품을 겸비한 팀장님과 팀원들 덕분에 데이터베이스 구현과 React 기반 프론트엔드 개발까지 직접 경험할 수 있었습니다.
-좋은 분들과 함께할 수 있었음에 진심으로 감사드리며, 앞으로도 이번 프로젝트에서 배운 내용을 체계적으로 정리·구체화하여 실력을 더욱 성장시켜 나가겠습니다.
-
-**김담하**
-- 데이터 분석과 머신러닝 모델 선정이 예측 모델에 미치는 영향을 좀 더 자세히 알 수 있게 되었던 계기가 된거 같습니다. 웹페이지를 구성하는 새로운 방법과 개념들도 알게 되었고 협업하는 과정을 직접 경험해서 유익한 시간이였습니다.
-
-**조준호**
-- 이번 기회에 미숙하지나마 머신러닝을 여러번 다뤄보고 스스로 feature도 생성해보면서 모델 성능을 개선해 보는 경험을 통해 머신러닝에 대해 한층 더 깊이 이해 할 수 있어서 좋았습니다. 새로운 분야인 react에 대해 배울 수 있는 좋은 기회 였습니다.
